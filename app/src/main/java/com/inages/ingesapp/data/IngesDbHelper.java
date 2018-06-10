@@ -14,7 +14,8 @@ public class IngesDbHelper extends SQLiteOpenHelper {
 
     public IngesDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        sqLiteDatabase.execSQL("CREATE TABLE " + IngeEntry.TABLE_NAME + " ("
+        sqLiteDatabase=getWritableDatabase();
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + IngeEntry.TABLE_NAME + " ("
                 + IngeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + IngeEntry.ID + " TEXT NOT NULL,"
                 + IngeEntry.NAME + " TEXT NOT NULL,"
@@ -24,7 +25,7 @@ public class IngesDbHelper extends SQLiteOpenHelper {
                 + IngeEntry.AVATAR_URI + " TEXT,"
                 + "UNIQUE (" + IngeEntry.ID + "))");
 
-        ContentValues values = new ContentValues();
+    /*    ContentValues values = new ContentValues();
         // Pares clave-valor
         values.put(IngeEntry.ID, "L-001");
         values.put(IngeEntry.NAME, "Carlos solarte");
@@ -37,6 +38,7 @@ public class IngesDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(IngeEntry.TABLE_NAME, null, values);
 
 
+        mockData(getWritableDatabase());*/
     }
 
 
@@ -136,13 +138,6 @@ public class IngesDbHelper extends SQLiteOpenHelper {
         );
     }
 
-    public long saveINGE(Inge INGE) {
-        return getWritableDatabase().insert(
-                IngeEntry.TABLE_NAME,
-                null,
-                INGE.toContentValues());
-
-    }
 
 
 }

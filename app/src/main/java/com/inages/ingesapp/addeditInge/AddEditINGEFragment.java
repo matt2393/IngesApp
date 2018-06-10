@@ -2,6 +2,7 @@ package com.inages.ingesapp.addeditInge;
 
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.inages.ingesapp.R;
 import com.inages.ingesapp.data.Inge;
+import com.inages.ingesapp.data.IngesContract;
 import com.inages.ingesapp.data.IngesDbHelper;
 
 public class AddEditINGEFragment extends Fragment {
@@ -104,7 +107,45 @@ public class AddEditINGEFragment extends Fragment {
 
 
     private void loadINGE() {
-        // AsyncTask
+        new IngesLoadTask().execute();
+
+    }
+
+    private class IngesLoadTask extends AsyncTask<Void, Void, Cursor> {
+
+        @Override
+        protected Cursor doInBackground(Void... voids) {
+            if(mINGEId!=null)
+                return mINGESDbHelper.getIngeById(mINGEId);
+            else
+                return null;
+        }
+
+
+
+
+
+        @Override
+        protected void onPostExecute(Cursor cursor) {
+            if (cursor != null && cursor.getCount() > 0) {
+                if (cursor.moveToNext()){
+                    String name = cursor.getString(cursor.getColumnIndex(IngesContract.IngeEntry.NAME));
+                    String phoneNumber = cursor.getString(cursor.getColumnIndex(IngesContract.IngeEntry.PHONE_NUMBER));
+                    String specialty = cursor.getString(cursor.getColumnIndex(IngesContract.IngeEntry.SPECIALTY));
+                    String bio = cursor.getString(cursor.getColumnIndex(IngesContract.IngeEntry.BIO));
+
+                    mNameField.setText(name);
+                    mPhoneNumberField.setText(phoneNumber);
+                    mSpecialtyField.setText(specialty);
+                    mBioField.setText(bio);
+
+                }
+                Log.e("INGEs","se encontro inges");
+
+            } else {
+                Toast.makeText(getActivity(),"Error", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private class AddEditINGETask extends AsyncTask<Inge, Void, Boolean> {
@@ -113,7 +154,7 @@ public class AddEditINGEFragment extends Fragment {
             if (mINGEId != null) {
                 return mINGESDbHelper.updateINGE(INGES[0], mINGEId) > 0;
             } else {
-                return mINGESDbHelper.saveINGE(INGES[0]) > 0;
+                return mINGESDbHelper.saveInge(INGES[0]) > 0;
             }
 
         }

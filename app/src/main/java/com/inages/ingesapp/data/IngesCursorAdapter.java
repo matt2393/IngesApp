@@ -47,7 +47,7 @@ public class IngesCursorAdapter extends CursorAdapter {
                 .with(context)
                 .asBitmap()
                 .load(Uri.parse("file:///android_asset/" + avatarUri))
-                //.error(R.drawable.ic_account_circle)
+                .error(R.drawable.person_placeholder_1)
                 .centerCrop()
                 .into(new BitmapImageViewTarget(avatarImage) {
                     @Override

@@ -101,10 +101,11 @@ public class IngesDetailFragment extends Fragment {
 
     private void showInge(Inge INGE) {
         mCollapsingView.setTitle(INGE.getName());
-        GlideApp.with(this)
+        /*GlideApp.with(this)
                 .load(Uri.parse("file:///android_asset/" + INGE.getAvatarUri()))
                 .centerCrop()
-                .into(mAvatar);
+                .error(R.drawable.person_placeholder_1)
+                .into(mAvatar);*/
         mPhoneNumber.setText(INGE.getPhoneNumber());
         mSpecialty.setText(INGE.getSpecialty());
         mBio.setText(INGE.getBio());

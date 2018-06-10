@@ -20,10 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre"
+            android:importantForAutofill="noExcludeDescendants"
 
-
-            android:inputType="textPersonName"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"            tools:text="Alejandro Riascos" />
+            android:inputType="textPersonName"            tools:text="Alejandro Riascos" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -37,6 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Número de teléfono"
+            android:importantForAutofill="noExcludeDescendants"
+
             android:inputType="phone"
             tools:text="300 200 4564" />
     </android.support.design.widget.TextInputLayout>
@@ -52,6 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Especialidad"
+            android:importantForAutofill="noExcludeDescendants"
+
             android:inputType="text"
             tools:text="Ingeniero penalista" />
     </android.support.design.widget.TextInputLayout>
@@ -73,6 +76,8 @@
             android:layout_height="wrap_content"
             android:gravity="top|start"
             android:hint="Biografía"
+            android:importantForAutofill="noExcludeDescendants"
+
             android:imeOptions="actionDone"
             android:inputType="text|textMultiLine"
             tools:text="@string/lorem" />
